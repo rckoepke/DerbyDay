@@ -1,8 +1,0 @@
-Connect to EC2 Instance:
-ssh -i ~/first_keypair.pem.txt ubuntu@ec2-18-220-172-129.us-east-2.compute.amazonaws.com
-
-SSH tunnel for PhpMyAdmin:
-ssh -N -L 8888:127.0.0.1:80 -i ~/first_keypair.pem.txt bitnami@ec2-18-220-172-129.us-east-2.compute.amazonaws.com
-
-HTTP Portal:
-http://127.0.0.1:8888/phpmyadmin
