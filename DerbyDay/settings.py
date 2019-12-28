@@ -20,13 +20,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'rxi1^)#-f^p36(c$=_dv8856jze1a!&89yqrv2*%cxgbr=gie1'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
+if 'DJANGO_DEBUG_FALSE' in os.environ:
+    DEBUG = False
+    SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
+    ALLOWED_HOSTS = os.environ['SITENAME']
+else:
+    DEBUG = True
+    SECRET_KEY = 'insecure-key-for-dev'
+    ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -77,11 +79,20 @@ WSGI_APPLICATION = 'DerbyDay.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {
+            'read_default_file': os.path.join(BASE_DIR, os.environ['PATH_TO_MYSQL_CNF']), #Use secrets.env to provide path to a MySQL Options File
+            # https://docs.djangoproject.com/en/1.7/ref/databases/#connecting-to-the-database
+        },
     }
 }
-
+##MySQL Options File Example (replace with actual values):
+# [client]
+# database = DB_NAME
+# host = localhost
+# user = DB_USER
+# password = DB_PASSWORD
+# default-character-set = utf8mb4
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
