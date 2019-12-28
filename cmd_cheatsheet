@@ -1,0 +1,17 @@
+Connect to EC2 Instance:
+ssh -i "second_keypair.pem" ubuntu@ec2-18-225-10-85.us-east-2.compute.amazonaws.com
+
+#SSH tunnel for PhpMyAdmin:
+#ssh -N -L 8888:127.0.0.1:80 -i ~/first_keypair.pem.txt bitnami@ec2-18-220-172-129.us-east-2.compute.amazonaws.com
+
+HTTP Portal:
+http://18.225.10.85/
+#http://127.0.0.1:8888/phpmyadmin
+##phpmyadmin
+
+get default administrative passwd, e.g. for MySQL:
+bitnami@ip-172-31-47-45:~$ cat ./bitnami_credentials
+
+Configure dBeaver to use SSH tunneling
+
+django-admin startproject DerbyDay #start new Django Project (should use this or git clone?)
