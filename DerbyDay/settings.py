@@ -41,8 +41,10 @@ else:
 
 #export DJANGO_SECRET_KEY='secure-key-for-prod'
 #export ALLOWED_HOSTS="['localhost', '127.0.0.1', 'xxx.xxx.xxx.xxx', 'domain.com']"
-#export PATH_TO_MYSQL_PATH='mysql.cnf' ## See example mysql.cnf after DATABASES{} below.
+#export PATH_TO_MYSQL_CNF='mysql.cnf' ## See example mysql.cnf after DATABASES{} below.
 ##export DJANGO_DEBUG_FALSE=TRUE # uncomment to set true for production
+
+# Must use 'source ./secrets.sh'
 
 # Application definition
 
@@ -102,10 +104,11 @@ DATABASES = {
 ##MySQL Options File Example (replace with actual values):
 # [client]
 # database = DB_NAME
-# host = localhost
+# host = 127.0.0.1 # "localhost" does not work sometimes
 # user = DB_USER
-# password = DB_PASSWORD
+# password = DB_PASSWORD #cat ./bitnami_credentials for root passwd
 # default-character-set = utf8mb4
+# socket=/var/lib/mysql/mysql.sock
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
