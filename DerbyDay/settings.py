@@ -49,7 +49,6 @@ else:
 # Application definition
 
 INSTALLED_APPS = [
-    'DerbyDayApp.apps.DerbydayappConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
