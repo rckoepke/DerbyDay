@@ -1,3 +1,5 @@
 mysql.cnf
 secrets.sh
 secrets.env
+*.pyc
+__pychache__
