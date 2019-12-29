@@ -11,15 +11,20 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+#from dotenv import load_dotenv ##requires pip install python-dotenv
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
-
+# Development settings: See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 # SECURITY WARNING: keep the secret key used in production secret!
+
+#### Consider replacing secret .env file with AWS Parameter Store / KMS:
+## https://engineering.instawork.com/django-settings-in-the-cloud-aa3fc547a2b4
+
+##Can automate loading .env file with python-dotenv.load_dotenv()
+## https://www.youtube.com/watch?v=2uaTPmNvH0I
 
 if 'DJANGO_DEBUG_FALSE' in os.environ:
     DEBUG = False
@@ -29,6 +34,15 @@ else:
     DEBUG = True
     SECRET_KEY = 'insecure-key-for-dev'
     ALLOWED_HOSTS = []
+
+#### Example secrets.sh file:
+## Consider replacing this file with AWS Parameter Store / KMS:
+## https://engineering.instawork.com/django-settings-in-the-cloud-aa3fc547a2b4
+
+#export DJANGO_SECRET_KEY='secure-key-for-prod'
+#export ALLOWED_HOSTS="['localhost', '127.0.0.1', 'xxx.xxx.xxx.xxx', 'domain.com']"
+#export PATH_TO_MYSQL_PATH='mysql.cnf' ## See example mysql.cnf after DATABASES{} below.
+##export DJANGO_DEBUG_FALSE=TRUE # uncomment to set true for production
 
 # Application definition
 
@@ -81,7 +95,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
-            'read_default_file': os.path.join(BASE_DIR, os.environ['PATH_TO_MYSQL_CNF']), #Use secrets.env to provide path to a MySQL Options File
+            'read_default_file': os.path.join(BASE_DIR, os.environ['PATH_TO_MYSQL_CNF']), #Use secrets.sh to provide path to a MySQL Options File
             # https://docs.djangoproject.com/en/1.7/ref/databases/#connecting-to-the-database
         },
     }
