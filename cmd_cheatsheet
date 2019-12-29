@@ -17,4 +17,5 @@ Configure dBeaver to use SSH tunneling
 django-admin startproject DerbyDay #start new Django Project (should use this or git clone?)
 
 #Must run the following for Django to be able to connect to MySQL (or to connect to MySQL using cli 'mysql' in SSH shell session)
+# Fixes: "Access denied for user 'root'@'localhost' (using password: YES)"
 bitnami@ip-172-31-47-45:~/DerbyDay$ sudo mysql_secure_installation 
